@@ -1,0 +1,60 @@
+<% content_for :title do %>
+  <%= @item.name %> /
+<% end %>
+<h1><%= @item.name %></h1>
+
+<%= render :partial => 'calendar', :locals => { :now => @date } %>
+
+<div id="actions">
+  <div id="booking-form">
+    <h2>Réserver</h2>
+    <% if flash[:errors] %>
+      <ul class="errors">
+        <%= flash[:errors] %>
+      </ul>
+    <% end %>
+    <% form_for :event, :url => add_event_path(:key => @item.key) do |f| %>
+    <p>
+      <%= f.label :title, "Titre :" %>
+      <%= f.text_field :title %>
+      <span class="form-field-info">140 caractères maximum</span>
+    </p>
+    <p>
+      <%= f.label :details, "Détails :" %>
+      <%= f.text_area :details, :rows => 5, :cols => 20 %>
+    </p>
+    <p>
+      <%= f.label :dates, "Dates :" %>
+      <%= text_area_tag 'event[dates]', default_dates, :rows => 5, :cols => 20 %>
+      <span class="form-field-info">Une date par ligne</span>
+    </p>
+    <p>
+      <%= f.submit "Valider" %>
+    </p>
+    <% end %>
+  </div>
+
+  <ul id="event-list">
+    <% upper = 6.days.since(@date)
+    @item.bookings_between(@date, upper).map(&:event).uniq.each do |event| %>
+    <li class="event" id="<%= event.anchor %>">
+      <strong style="background-color: <%= event.color %>;">
+        <%=h event.title %>
+        <a href="#" class="top-anchor">↑</a>
+      </strong>
+      <span class="details">
+        <%=h event.details %>
+        <br />
+      </span>
+      <ul class="booking-list">
+        <%=
+          render :partial => 'bookings/booking',
+                 :collection => event.item.bookings_between(@date, upper)
+        %>
+      </ul>
+      <p class="edit">
+        <%= link_to 'Éditer', edit_event_path(:key => @item.key, :id => event.id) %>
+      </p>
+    </li>
+    <% end %>
+</div>

@@ -1,0 +1,14 @@
+<select name="<%= name %>_hour" id="event-<%= name %>-hour">
+<% (0..23).each do |i| -%>
+  <option value="<%= i %>" <%=
+    'selected="selected"' if i == hour
+  %>><%= "%02d" % i %>h</option>
+<% end -%>
+</select>
+<select name="<%= name %>_min" id="event-<%= name %>-min">
+<% (0..59).step(15) do |i| -%>
+  <option value="<%= i %>" <%=
+    'selected="selected"' if i == min
+  %>><%= "%02d" % i %></option>
+<% end -%>
+</select>

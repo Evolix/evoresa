@@ -1,0 +1,27 @@
+<li class="item">
+  <h2><%= item.name %></h2>
+  <p>
+    <span class="key"><%=
+      link_to item.key, item_path(:key => item.key)
+    %></span>
+    &lt;<span class="email"><%=
+      link_to item.email, "mailto:#{item.email}"
+    %></span>&gt;
+    <span class="edit">
+      <%= link_to "Éditer", edit_item_path(:key => item.key) %>
+    </span>
+  </p>
+
+  <ul class="event-list">
+    <% if item.upcoming_events.empty? %>
+      <li>Aucun évènement à venir</li>
+    <% else %>
+      <li>Évènements à venir :</li>
+      <%= render :partial => 'events/event', :collection => item.upcoming_events %>
+    <% end %>
+  </ul>
+
+  <p class="timestamps">
+    <%= item.created_at.localtime.strftime('Créé le %d/%m/%Y à %Hh%M') %>
+  </p>
+</li>

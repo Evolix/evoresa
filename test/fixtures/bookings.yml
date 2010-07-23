@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  start_at: 2010-07-22 17:32:50
+  end_at: 2010-07-22 17:32:50
+  event: 
+
+two:
+  start_at: 2010-07-22 17:32:50
+  end_at: 2010-07-22 17:32:50
+  event: 

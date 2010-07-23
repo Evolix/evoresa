@@ -1,0 +1,111 @@
+<div id="day-view">
+  <table id="monthly-calendar">
+    <thead>
+      <tr class="cal-nav">
+        <th colspan="7">
+          <a href="?date=<%= 1.month.until(now).strftime('%d/%m/%Y')
+            %>" class="cal-prev" title="Mois précédent">«</a>
+          <strong><%= now.strftime('%B %Y') %></strong>
+          <a href="?date=<%= 1.month.since(now).strftime('%d/%m/%Y')
+            %>" class="cal-next" title="Mois suivant">»</a>
+        </th>
+      </tr>
+      <tr class="cal-head">
+        <th>lun</th> <th>mar</th> <th>mer</th> <th>jeu</th>
+        <th>ven</th> <th>sam</th> <th>dim</th>
+      </tr>
+    </thead>
+
+    <tfoot>
+      <tr>
+        <td colspan="7">
+          <form action="" method="get">
+          <p>
+            <input type="text" name="date" value="<%= now.strftime('%d/%m/%Y') %>" />
+            <input type="submit" value="Go" /><br />
+            <a href="?date=<%= Date.today.strftime('%d/%m/%Y') %>">Aujourd'hui</a>
+          </p>
+          </form>
+        </td>
+      </tr>
+    </tfoot>
+
+    <tbody>
+      <tr><%
+      first   = Date.civil(now.year, now.month, 1)
+      last    = Date.civil(now.year, now.month, -1)
+      wday    = 1
+      current = 1
+
+      # Initial padding, if needed
+      while wday != first.wday %>
+        <td></td> <%
+        wday = (wday + 1) % 7
+      end
+
+      # Day cells
+      while current <= last.mday %>
+        <td<%= ' class="current-day"' if current == now.day
+          %>><a href="?date=<%= now.strftime('%02d/%%m/%%Y' % current) %>"><%=
+          current
+        %></a></td><%
+        # Next row after every sunday
+        if (wday % 7).zero? %>
+      </tr>
+      <tr><%
+        end
+        wday = (wday + 1) % 7
+        current += 1
+      end
+
+      # Fill the remaining space
+      until ((wday-1) % 7).zero? %>
+        <td></td><%
+        wday += 1
+      end %>
+      </tr>
+    </tbody>
+  </table>
+
+  <table id="booking-calendar">
+    <thead>
+    <tr>
+      <td></td>
+      <th>00:00</th>  <th>02:00</th>  <th>04:00</th>
+      <th>06:00</th>  <th>08:00</th>  <th>10:00</th>
+      <th>12:00</th>  <th>14:00</th>  <th>16:00</th>
+      <th>18:00</th>  <th>20:00</th>  <th>22:00</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      <%
+      7.times do |offset|
+        current_day = offset.days.since(now)
+        bookings = @item.bookings_for(current_day)
+        offset, m, w = 0.0, 0.0, 0.0
+      %>
+      <tr<%= ' class="calendar-now"' if current_day == now %>>
+        <th><%= current_day.strftime('%a %d/%m') %></th>
+        <td class="calendar-day" colspan="12"><%
+          bookings.each do |booking| %>
+          <a class="calendar-booking" href="#<%= booking.event.anchor %>"
+             style="background-color: <%=
+              booking.event.color
+          %>; margin-left: <%=
+            m = booking.margin_for(current_day, offset)
+            m + 0.15
+          %>%; width: <%=
+            w = booking.width_for(current_day)
+          %>%;"><span><%= booking.event.title %></span></a><%
+            offset += m if booking == bookings.first
+            offset += w
+          end
+        %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+

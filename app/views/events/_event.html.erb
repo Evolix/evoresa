@@ -1,0 +1,7 @@
+<li class="event">
+  <h3 style="background-color: <%= event.color %>"><%=h event.title %></h3>
+  <p><%=h event.details %></p>
+  <ul class="booking-list">
+    <%= render :partial => 'bookings/booking', :collection => event.upcoming_bookings %>
+  </ul>
+</li>

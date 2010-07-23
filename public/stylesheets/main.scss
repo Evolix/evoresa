@@ -1,0 +1,368 @@
+body {
+  width: 80%;
+  margin: 0 auto;
+  color: #333;
+  font: normal 1em "HelveticaNeue-Light", "Helvetica Neue Light",                    "Helvetica Neue", Helvetica, Arial, "Lucida Grande",                    sans-serif;
+  position: relative;
+}
+
+a {
+  &:link, &:visited {
+    color: #02f;
+    text-decoration: none;
+  }
+  &:hover, &:active, &:focus {
+    color: #08f;
+  }
+}
+
+h1 {
+  padding: 2em 0.25em 0.1em;
+  line-height: 100%;
+  font-size: 3em;
+  font-weight: normal;
+  color: #ee6600;
+  text-shadow: -1px -1px 1px #ffbb88;
+
+  &.error { color: red; }
+}
+
+#day-view {
+  position: relative;
+  overflow: visible;
+
+  #monthly-calendar {
+    position: relative;
+    top: 2em;
+    left: 0;
+    width: 28%;
+    text-align: center;
+    thead tr {
+      &.cal-nav th {
+        font-size: 1.2em;
+        border-bottom: 1px solid #999;
+        text-align: center;
+        a {
+          font-size: 1.3em;
+          margin: 0 0.25em;
+        }
+        strong {
+          font-weight: bold;
+        }
+      }
+      &.cal-head {
+        background: #e0e0e0 url("/images/gradient.png") top left repeat-x;
+        border: 1px solid #aaa;
+        -moz-box-shadow: 0 0 3px #aaaaaa;
+        -webkit-box-shadow: 0 0 3px #aaaaaa;
+        box-shadow: 0 0 3px #aaaaaa;
+        th {
+          text-align: center;
+          font-size: 1.1em;
+          padding: 0.5em 0.5em 0.25em;
+          font-variant: small-caps;
+          border-bottom: 1px solid #aaa;
+          color: #333;
+        }
+      }
+    }
+    tbody {
+      -moz-box-shadow: 0 0 3px #aaaaaa;
+      -webkit-box-shadow: 0 0 3px #aaaaaa;
+      box-shadow: 0 0 3px #aaaaaa;
+      border: 1px solid #ccc;
+      td {
+        padding: 0.25em;
+        background-color: #efefef;
+        border-top: 1px solid white;
+        &.current-day {
+          border-top: 1px solid #fc0;
+          background-color: #ffa;
+        }
+      }
+    }
+    tfoot tr td {
+      p {
+        padding: 0.5em;
+      }
+      input[type=text] {
+        width: 12ex;
+      }
+    }
+  }
+
+  #booking-calendar {
+    position: absolute;
+    top: 0;
+    left: 29%;
+    width: 70%;
+    margin: 3% 0 1%;
+    vertical-align: middle;
+    thead th {
+      padding: 0.15em 0.25em;
+      border-left: 1px dotted #aaa;
+      background: #e0e0e0 url("/images/gradient.png") top left repeat-x;
+    }
+    tbody {
+      th {
+        padding: 0.25em 0.15em 0.25em 0.5em;
+        font-weight: bold;
+        color: black;
+      }
+      tr {
+        border-top: 1px solid #999;
+        border-bottom: 1px solid #999;
+        &.calendar-now {
+          background-color: #ffa;
+          th {
+            padding: 0.50em 0.15em 0.50em 0.5em;
+          }
+        }
+      }
+      td.calendar-day {
+        position: relative;
+      }
+      a.calendar-booking {
+        display: block;
+        height: 0.75em;
+        float: left;
+        background: transparent url('/images/gradient.png') bottom left repeat-x;
+        &:hover, &:target {
+          -moz-box-shadow: 0 0 2px #840;
+          -webkit-box-shadow: 0 0 2px #840;
+          box-shadow: 0 0 3px #840;
+        }
+        span {
+          display: none;
+        }
+        &:hover {
+          cursor: cross;
+        }
+      }
+    }
+  }
+}
+#actions {
+  margin: 5% auto 1%;
+  position: relative;
+
+  #booking-form {
+    float: left;
+    width: 60%;
+    h2 {
+      font-size: 1.2em;
+      padding: 0.18em 0.5em 0.15em;
+      font-weight: bold;
+      margin-bottom: 1em;
+      border-bottom: 1px solid #999;
+    }
+    .errors {
+      margin: 0 3% 2%;
+      background-color: #fdd;
+      border: 1px solid #c00;
+      padding: 0.5% 1%;
+      p { margin: 0.5%; }
+    }
+    p {
+      margin: 0 3% 2%;
+      > label:first-child {
+        display: inline-block;
+        min-width: 13ex;
+      }
+      textarea {
+        vertical-align: top;
+        width: 50%;
+        height: 4em;
+      }
+      .form-field-info {
+        font-style: italic;
+        color: #777;
+      }
+      input {
+        &[type="submit"] {
+          margin-left: 13ex;
+        }
+        &[type="text"] {
+          width: 50%;
+        }
+      }
+    }
+    #booking-more {
+      border-top: 1px solid #ccc;
+      padding-top: 0.5em;
+      p:first-child label[for] {
+        padding-right: 0.5em;
+      }
+    }
+  }
+  #event-list {
+    float: left;
+    width: 39%;
+    margin: 2em 0 1% 1%;
+    .event {
+      border: 1px solid #ddd;
+      margin-bottom: 2%;
+      border: 1px solid #999;
+      background: white;
+      strong {
+        display: block;
+        position: relative;
+        padding: 0.5% 1%;
+        font-weight: bold;
+        background: #d0d0d0 url("/images/gradient.png") top left repeat-x;
+        .top-anchor {
+          display: block;
+          position: absolute;
+          top: 0.25em;
+          right: 0.5em;
+        }
+      }
+      &:target {
+        -moz-box-shadow: 0 0 6px #da0;
+        -webkit-box-shadow: 0 0 6px #da0;
+        box-shadow: 0 0 6px #da0;
+        strong {
+          background-color: #fc0;
+        }
+      }
+
+      span {
+        &.details {
+          display: block;
+          padding: 0.5em 1em;
+        }
+        &.more {
+          font-size: 0.9em;
+          color: #999;
+          display: block;
+          border-top: 1px solid #999;
+          margin: 2px 4px;
+          padding: 2px 4px;
+        }
+      }
+
+      .booking-list {
+        padding: 0.5% 1% 0.5% 5%;
+        .booking {
+          list-style-type: square;
+        }
+      }
+
+      .edit {
+        margin: 0.5% 1%;
+        text-align: right;
+      }
+    }
+  }
+}
+
+#content-page {
+  font-size: 1.5em;
+  line-height: 150%;
+  margin: 1% auto 2%;
+  width: 70%;
+  padding: 0.5% 1%;
+}
+
+#item-list {
+  font-size: 1.2em;
+  margin: 1% auto 2%;
+  width: 80%;
+  padding: 0.5% 1%;
+
+  .item {
+    margin: 0 0 2%;
+    border: 1px solid #999;
+    h2 {
+      font-size: 1.3em;
+      font-weight: bold;
+      padding: 0.5% 1%;
+      background: #d0d0d0 url("/images/gradient.png") top left repeat-x;
+    }
+    h2 + p {
+      position: relative;
+      margin: 0 0 1%;
+      padding: 0.5% 1%;
+      font-size: 0.8em;
+      border-bottom: 1px solid #d0d0d0;
+      background-color: #efefef;
+      font-family: monospace;
+
+      .edit {
+        display: block;
+        position: absolute;
+        font-size: 0.8em;
+        top: 0.5em;
+        right: 1em;
+      }
+    }
+    .timestamps {
+      margin: 1% 0 0;
+      padding: 0.5% 1%;
+      font-size: 0.8em;
+      border-top: 1px solid #d0d0d0;
+      background-color: #efefef;
+    }
+    .event-list {
+      font-size: 0.8em;
+      margin: 1% auto;
+      width: 80%;
+      & > li:first-child {
+        margin: 2% auto;
+        text-align: center;
+        font-size: 1.1em;
+      }
+      .event {
+        border: 1px solid #ddd;
+        h3 {
+          font-weight: bold;
+          padding: 0.5% 1%;
+          background: #d0d0d0 url("/images/gradient.png") top left repeat-x;
+        }
+        h3 + p {
+          padding: 0.5% 1%;
+        }
+
+        .booking-list {
+          padding: 0.5% 1% 0.5% 5%;
+          .booking {
+            list-style-type: square;
+          }
+        }
+      }
+    }
+  }
+}
+
+#footer {
+  width: 90%;
+  margin: 3% auto 1%;
+  padding: 0.25em 0;
+  text-align: center;
+  border-top: 1px solid #ccc;
+  font-style: italic;
+  color: #aaa;
+  clear: both;
+}
+
+a#help {
+  background: transparent url("/images/help.png") top left no-repeat;
+  display: block;
+  width: 26px;
+  height: 26px;
+  margin: 0.5em auto 1em;
+  color: transparent;
+  &:hover {
+    background-position: bottom left;
+  }
+}
+
+div.error-details {
+  font-size: 1.5em;
+  line-height: 150%;
+  margin: 1% auto 2%;
+  width: 70%;
+  background-color: #fdd;
+  border: 1px solid #c00;
+  padding: 0.5% 1%;
+}
