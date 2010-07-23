@@ -3,11 +3,15 @@
 EvoResa est un sytème de réservation de ressources.
 
 
-== Pour l'instant
+== Ce qu'on peut faire pour l'instant
+
+=== Charger la base de données
+
+$ RAILS_ENV=[production|development] rake db:schema:load
 
 === Ajouter une ressource :
 
-$ ./script/console
+$ RAILS_ENV=[production|development]./script/console
 >> Item.new(:name => "Nom de la ressource", :email => "Email de diffusion").save
 >> Item.last # Affiche les propriétés du dernier Item enregistré
 
@@ -19,3 +23,11 @@ Current key is: ee7ebb0a6e3ce158407baf986811a3a2
 Change with rake evoresa:set_key [KEY=<key>]
 
 $ rake evoresa:set_key # ou rake evoresa:set_key KEY=<passphrase>
+
+=== Utiliser des tags
+
+Lors de l'ajout d'un évènement, un mot entre crochets ([Mot]) est interprété
+comme un tag et détermine à lui seul la couleur de l'évènement. Sinon, le titre
+entier est utilisé pour donner une couleur possiblement unique à l'évènement.
+
+=== Démarrer !
