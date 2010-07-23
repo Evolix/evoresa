@@ -1,3 +1,21 @@
 == EvoResa
 
 EvoResa est un sytème de réservation de ressources.
+
+
+== Pour l'instant
+
+=== Ajouter une ressource :
+
+$ ./script/console
+>> Item.new(:name => "Nom de la ressource", :email => "Email de diffusion").save
+>> Item.last # Affiche les propriétés du dernier Item enregistré
+
+=== Afficher/changer la passphrase
+
+$ rake evoresa:show_key
+(in /home/madx/dev/evolix/repos/evoresa)
+Current key is: ee7ebb0a6e3ce158407baf986811a3a2
+Change with rake evoresa:set_key [KEY=<key>]
+
+$ rake evoresa:set_key # ou rake evoresa:set_key KEY=<passphrase>
