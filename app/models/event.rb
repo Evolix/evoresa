@@ -24,4 +24,14 @@ class Event < ActiveRecord::Base
   def anchor
     'event-%s' % id.to_s(16)
   end
+
+  def bookings_between(lower, upper)
+    bookings_range(lower.at_midnight, 1.day.since(upper).at_midnight - 1)
+  end
+
+  private
+    def bookings_range(lower, upper)
+      self.bookings.find :all,
+        :conditions => ['start_at >= ? AND end_at <= ?', lower, upper]
+    end
 end

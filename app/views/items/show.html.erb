@@ -49,7 +49,7 @@
       <ul class="booking-list">
         <%=
           render :partial => 'bookings/booking',
-                 :collection => event.item.bookings_between(@date, upper)
+                 :collection => event.bookings_between(@date, upper)
         %>
       </ul>
       <p class="edit">
