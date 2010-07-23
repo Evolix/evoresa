@@ -4,6 +4,8 @@ class Event < ActiveRecord::Base
   belongs_to :item
   has_many   :bookings
 
+  before_create :generate_color
+
   validates_presence_of :title, :message => "Le titre ne peut pas être vide"
   validates_length_of   :title, :within => 4...140,
                         :message => "Le titre doit faire entre 4 et 140 caractères"

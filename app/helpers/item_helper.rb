@@ -1,5 +1,6 @@
 module ItemHelper
   def default_dates
+    return flash[:dates] if flash[:dates]
     [ @date.strftime('%d/%m/%Y'), hour(+0), hour(+1) ].join(' ')
   end
 
